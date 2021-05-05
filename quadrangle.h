@@ -12,8 +12,10 @@ protected:
     size_t edge;
     double area;
     double tmp;
+    // static size_t Accuracy;
 public:
     
+    static int Accuracy;
     quadrangle(string ids,size_t e = 0,double area = 0) : ids(ids),edge(e),area(area){}
     ~quadrangle(){}
 
@@ -34,6 +36,7 @@ public:
         if(tmp == area)
         {
             cout<<"Your answer is correct"<<endl;
+            Accuracy++;
             return true;
         }
         else

@@ -32,13 +32,15 @@ size_t get_random_value(int edge)
     
 }
 
+int quadrangle::Accuracy = 0;
+
 int main(int argc,char* argv[])
 {
     // string s1 = "rectangle";
     // rect r1(get_random_value(10),get_random_value(10),s1);
     // dis(r1);
     // re(r1);
-    
+    std::cout<<"Practicing. Input negative value to halt"<<std::endl;
     list<quadrangle*> l; 
     while(true)
     {   
@@ -100,6 +102,7 @@ int main(int argc,char* argv[])
     auto review = [](auto &&v){re(*v);};
     std::cout<<"Reviewing..."<<std::endl;
     l.traverse(review);
+    std::cout<<"Total: "<<l.size()<<", Correct: "<<quadrangle::Accuracy<<std::endl;
     l.clear();
     
     // }
