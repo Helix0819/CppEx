@@ -1,12 +1,9 @@
 #include "quadrangle.h"
 #include "linklist.h"
-#include<iostream>
 #include<ctime>
-#include<cstdlib>
-#include<string>
-using namespace std;
 
-//display any kinds of quadrangles 
+
+//display any kinds of quadrangles polymorphism
 int dis(quadrangle& obj)
 {
     int ret = 0;
@@ -15,7 +12,8 @@ int dis(quadrangle& obj)
         return ret;
     return 1;
 }
-// review function
+
+// review function polymorphism
 void re(quadrangle& obj)
 {
     obj.review();
@@ -32,23 +30,27 @@ size_t get_random_value(int edge)
     
 }
 
+//init static value to cal correct answers
 int quadrangle::Accuracy = 0;
 
 int main(int argc,char* argv[])
 {
-    // string s1 = "rectangle";
-    // rect r1(get_random_value(10),get_random_value(10),s1);
-    // dis(r1);
-    // re(r1);
+
     std::cout<<"Practicing. Input negative value to halt"<<std::endl;
+    
+    //init linklist to save all the given quadrangles
     list<quadrangle*> l; 
+
+    //a loop to give assignments
     while(true)
     {   
-        int ret = 0;
-        size_t choice = get_random_value(5);
+        int ret = 0;//get return value
+
+        size_t choice = get_random_value(5);//randomly choose which kinds of quadrangles to display
+
         switch(choice)
         {
-            case 1:
+            case 1: //diamond
             {
                 diamond *d1 = new diamond(get_random_value(10),get_random_value(10),"diamond");
                 ret = dis(*d1);
@@ -58,7 +60,7 @@ int main(int argc,char* argv[])
                 continue;
                 
             }
-            case 2:
+            case 2: //square
             {
                 square *s1 = new square(get_random_value(10),"square");
                 ret = dis(*s1);
@@ -67,7 +69,7 @@ int main(int argc,char* argv[])
                 l.push_back(s1);
                 continue;
             }
-            case 3:
+            case 3: //rectangle
             {
                 rect *r1 = new rect(get_random_value(10),get_random_value(10),"rectangle");
                 ret = dis(*r1);
@@ -76,7 +78,7 @@ int main(int argc,char* argv[])
                 l.push_back(r1);
                 continue;
             }
-            case 4:
+            case 4: //parallelogram
             {
                 para *p1 = new para(get_random_value(10),get_random_value(10),"parallelogram");
                 ret = dis(*p1);
@@ -85,7 +87,7 @@ int main(int argc,char* argv[])
                 l.push_back(p1);
                 continue;
             }
-            case 5:
+            case 5: //trapezoid
             {            
                 trapezoid *t1 = new trapezoid(get_random_value(10),get_random_value(10),get_random_value(10),"trapezoid");
                 ret = dis(*t1);
@@ -99,21 +101,18 @@ int main(int argc,char* argv[])
         break;
     }
         
-    auto review = [](auto &&v){re(*v);};
+    auto review = [](auto &&v){re(*v);}; //review lambda func
+   
     std::cout<<"Reviewing..."<<std::endl;
-    l.traverse(review);
+   
+    l.traverse(review); //traverse the linklist and review
+   
+   //give total and correct ones
     std::cout<<"Total: "<<l.size()<<", Correct: "<<quadrangle::Accuracy<<std::endl;
+   
+   //clear the linklist
     l.clear();
     
-    // }
-    // auto af = [](auto&& v){dis(*v);};
-    // rect *c1 = new rect(get_random_value(10),get_random_value(10),"rectangle");
-    // list<quadrangle*> l;
-    // //std::cout<<c1->who_am_I();
-    // //dis(*c1);
-    // l.push_back(c1);
-    // l.traverse(af);
-    // delete c1;
     
     return 0;
 

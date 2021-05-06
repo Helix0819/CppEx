@@ -1,55 +1,63 @@
+#pragma once
+
 #include<iostream>
-#include<string>
+#include<cstring>
 #include<cstdlib>
-#include<ctime>
-using namespace std;
+
+
 
 
 class quadrangle
 {
 protected:
-    string ids;
+    std::string ids;
     size_t edge;
     double area;
     double tmp;
-    // static size_t Accuracy;
 public:
     
-    static int Accuracy;
-    quadrangle(string ids,size_t e = 0,double area = 0) : ids(ids),edge(e),area(area){}
+    static int Accuracy;//To calculate correct answer
+   
+    quadrangle(std::string ids,size_t e = 0,double area = 0) : ids(ids),edge(e),area(area){}
     ~quadrangle(){}
 
-    string who_am_I()
+    //who i am
+    std::string who_am_I()
     {
         return ids;
     }
 
+    //display my info and cin an answer
     virtual int info_cin()
     {
-        cout<<"I'm a(an) "<<who_am_I()<<endl;
-        cout<<"I have "<<edge<<"edges"<<endl;
+        std::cout<<"I'm a(an) "<<who_am_I()<<std::endl;
+        std::cout<<"I have "<<edge<<"edges"<<std::endl;
         return 1;
     }
 
+    //judge if the answer is correct
     bool judge()
     {
         if(tmp == area)
         {
-            cout<<"Your answer is correct"<<endl;
+            std::cout<<"Your answer is correct"<<std::endl;
             Accuracy++;
             return true;
         }
         else
         {
-            cout<<"Your answer is incorrect"<<endl;
+            std::cout<<"Your answer is incorrect"<<std::endl;
             return false;
         }
     }
+
+    //return area
     double get_area()
     {
         return area;
     }
 
+    //review my answer
     virtual void review()
     {
         std::cout<<"Reviewing..."<<std::endl;
@@ -59,12 +67,12 @@ public:
 class trapezoid : public quadrangle
 {
 private:
-    size_t width1;
+    size_t width1; 
     size_t width2;
     size_t height;
 public:
     
-    trapezoid(size_t _width1,size_t _width2,size_t _height,string ids) : quadrangle(ids),width1(_width1),width2(_width2),height(_height)
+    trapezoid(size_t _width1,size_t _width2,size_t _height,std::string ids) : quadrangle(ids),width1(_width1),width2(_width2),height(_height)
     {
         area = 0.5*(_width1+_width2)*_height;
     }
@@ -72,9 +80,9 @@ public:
 
     int info_cin() override
     {
-        cout<<"trapezoid: width1="<<width1<<", width2="<<width2<<", height="<<height<<", area=?";
-        cin>>tmp;
-        if(tmp == -1)
+        std::cout<<"trapezoid: width1="<<width1<<", width2="<<width2<<", height="<<height<<", area=?";
+        std::cin>>tmp;
+        if(tmp == -1) //if answer is -1 means user wanan quit!!
             return -1;
         judge();
         return 1;
@@ -85,7 +93,7 @@ public:
     {
         
         std::cout<<ids<<": "<<"width1= "<<width1<<", width2="<<width2<<", height="<<height<<", area="<<area<<", answer="<<tmp;
-        if(tmp==area)
+        if(tmp==area) //mark right or wrong
             std::cout<<" V"<<std::endl;
         else
             std::cout<<" X"<<std::endl;
@@ -99,7 +107,7 @@ protected:
    size_t height;
 public:
     
-    para(size_t _width,size_t _height,string ids) : quadrangle(ids), width(_width),height(_height)
+    para(size_t _width,size_t _height,std::string ids) : quadrangle(ids), width(_width),height(_height)
     {
         if(ids == "diamond")
             area = 0.5*_width*_height;
@@ -112,8 +120,8 @@ public:
 
     int info_cin() override
     {
-        cout<<"parallelogram: width="<<width<<", height="<<height<<", area=?";
-        cin>>tmp;
+        std::cout<<"parallelogram: width="<<width<<", height="<<height<<", area=?";
+        std::cin>>tmp;
         if(tmp == -1)
             return -1;
         judge();
@@ -136,15 +144,15 @@ class rect : public para
 {
 public:
     
-    rect(size_t _width,size_t _height,string ids) : para(_width,_height,ids){}
+    rect(size_t _width,size_t _height,std::string ids) : para(_width,_height,ids){}
     
     ~rect(){}
     
 
     int info_cin() override
     {
-        cout<<"rectangle: width="<<width<<", height="<<height<<", area=?";
-        cin>>tmp;
+        std::cout<<"rectangle: width="<<width<<", height="<<height<<", area=?";
+        std::cin>>tmp;
         if(tmp == -1)
             return -1;
         judge();
@@ -171,14 +179,14 @@ private:
 public:
     
     
-    diamond(size_t _diagnal1,size_t _diagnal2,string ids) : para(_diagnal1,_diagnal2,ids) ,diagnal1(_diagnal1),diagnal2(_diagnal2){}
+    diamond(size_t _diagnal1,size_t _diagnal2,std::string ids) : para(_diagnal1,_diagnal2,ids) ,diagnal1(_diagnal1),diagnal2(_diagnal2){}
     ~diamond(){}
 
 
     int info_cin() override
     {
-        cout<<"diamond: diagnal1="<<diagnal1<<", diagnal2="<<diagnal2<<", area=?";
-        cin>>tmp;
+        std::cout<<"diamond: diagnal1="<<diagnal1<<", diagnal2="<<diagnal2<<", area=?";
+        std::cin>>tmp;
         if(tmp == -1)
             return -1;
         judge();
@@ -202,14 +210,14 @@ class square : public rect
 {
 public:
     int ret = 0;
-    square(size_t _width,string ids = "square") : rect(_width,_width,ids){}
+    square(size_t _width,std::string ids = "square") : rect(_width,_width,ids){}
     
     ~square(){}
 
     int info_cin() override
     {
-        cout<<"square: width="<<width<<", area=?";
-        cin>>tmp;
+        std::cout<<"square: width="<<width<<", area=?";
+        std::cin>>tmp;
         if(tmp == -1)
             return -1;
         judge();
