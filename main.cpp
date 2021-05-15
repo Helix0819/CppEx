@@ -100,13 +100,18 @@ int main(int argc,char* argv[])
         }
         break;
     }
-        
-    auto review = [](auto &&v){re(*v);}; //review lambda func
+
+    //Be replaced by iterator!!!    
+    //auto review = [](auto &&v){re(*v);}; //review lambda func
    
     std::cout<<"Reviewing..."<<std::endl;
    
-    l.traverse(review); //traverse the linklist and review
+    //l.traverse(review); //traverse the linklist and review
    
+   for(auto itr = l.begin();itr != l.end();++itr)
+   {
+       re(*itr.getvalue()->data);
+   }
    //give total and correct ones
     std::cout<<"Total: "<<l.size()<<", Correct: "<<quadrangle::Accuracy<<std::endl;
    

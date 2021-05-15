@@ -171,9 +171,70 @@ public:
     //define callback type
     using callback_t = std::function<void (value_type &)>;
 
-    //traverse the list
-    void traverse(callback_t f) {
-        for (auto p = head.next; p != &tail; p = p->next)
-            f(p->data);
+    //traverse the list, be replaced by iterator!!!!
+
+    // void traverse(callback_t f) {
+    //     for (auto p = head.next; p != &tail; p = p->next)
+    //         f(p->data);
+    // }
+
+    //set iterator
+    friend class iterator;
+
+    using range = nodeptr;
+
+    class iterator
+    {
+     public:  
+       using value_type = typename list::value_type;
+       using pointer = typename list::pointer;
+       using reference = typename list::reference;
+
+    private:
+        range p;
+    public:
+        iterator(range q = nullptr) : p(q){}
+
+        bool operator !=(const iterator& i)
+        {
+            return p != i.p;
+        }
+
+        iterator& operator ++()
+        {
+            p = p->next;
+            return *this;
+        }
+
+        reference operator *()
+        {
+            return p->data;
+        }
+
+        iterator operator +(size_t i)
+        {
+            iterator t(this->p);
+
+            for(int n =0;n<i;++n)
+            {
+                t.p = t.p->next;
+            }
+            return t;
+        }
+
+        //need a func to return private value p;
+        range getvalue()
+        {
+            return p;
+        }
+    };
+
+    iterator begin()
+    {
+        return iterator(head.next);
+    }
+    iterator end()
+    {
+        return iterator(&tail);
     }
 };
